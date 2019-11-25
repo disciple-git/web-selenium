@@ -19,16 +19,16 @@ class SendEmail:
         else:
             print("请配置目标邮箱类型的端口号！")
 
-    def make_email(self):
+    def make_email(self, content):
         # 邮箱正文内容，第一个参数为内容，第二个参数为格式(plain 为纯文本)，第三个参数为编码
-        msg = MIMEText('send by python', 'plain', 'utf-8')
+        msg = MIMEText(content, 'plain', 'utf-8')
         # 邮件头信息
         msg['From'] = Header(self.from_addr)
         msg['To'] = Header(self.to_addr)
         msg['Subject'] = Header('python test')
         return msg
 
-    def send_mail(self):
+    def send_mail(self, msg):
         if self.email_type=="qq.com":
             # 开启发信服务，这里使用的是加密传输
             server = smtplib.SMTP_SSL(self.smtp_server, self.port)
@@ -41,14 +41,17 @@ class SendEmail:
         # 登录发信邮箱
         server.login(self.from_addr, self.password)
         # 发送邮件
-        server.sendmail(self.from_addr, self.to_addr, self.make_email().as_string())
+        server.sendmail(self.from_addr, self.to_addr, msg.as_string())
         # 关闭服务器
         server.quit()
         print("邮件已发送！")
 
 
 if __name__ == "__main__":
-    SendEmail().send_mail()
+    se = SendEmail()
+    msg = se.make_email("发送内容")
+    se.send_mail(msg)
+
 
 
 
