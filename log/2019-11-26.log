@@ -1,0 +1,8 @@
+2019-11-26 17:52:25,651 - ERROR -D:/program/web-selenium/log/logger.py-27行- error
+2019-11-26 17:55:07,037 - ERROR -D:/program/web-selenium/log/logger.py-27 行- 哈哈哈哈
+2019-11-26 17:55:40,858 - ERROR -D:/program/web-selenium/log/logger.py- 27行- 哈哈哈哈
+2019-11-26 17:56:18,013 - ERROR -D:/program/web-selenium/log/logger.py-27行- 哈哈哈哈
+2019-11-26 17:58:20,571 - INFO -D:/program/web-selenium/log/logger.py-26行- 测试info日志
+2019-11-26 17:58:20,571 - ERROR -D:/program/web-selenium/log/logger.py-27行- 哈哈哈哈
+2019-11-26 18:13:49,535 - INFO -D:/program/web-selenium/log/logger.py-26行- 测试info日志
+2019-11-26 18:13:49,535 - ERROR -D:/program/web-selenium/log/logger.py-27行- 这里是一个ERROR
