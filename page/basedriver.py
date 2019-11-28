@@ -60,6 +60,33 @@ class BaseDriver:
         element = self.get_element(by)
         element.click()
 
+    def change_frame(self, *args):
+        '''
+        选择frameset或iframe框架并切换
+        :param args: framename 框架类型
+                     num 目标框架序号
+        '''
+        value = args[0]
+        framename = value.split("=")[0]
+        num = value.split("=")[1]
+        self.driver.switch_to.default_content()  # 每次切换框架前先切回初始层
+        if framename == 'framset':
+            rf = self.driver.find_elements_by_tag_name("frame")[num] #选择指定层框架
+        else:
+            rf = self.driver.switch_to.frame("iframe")[num]
+        self.driver.switch_to.frame(rf)
+
+    def accept_alert(self, *args):
+        '''
+        处理弹窗
+        :return: 
+        '''
+        deal = args[0]
+        if deal == 'accept':
+            self.driver.switch_to.alert.accept()
+        else:
+            self.driver.switch_to.alert.dismiss()
+
     def sleep_time(self):
         '''
         休眠指定时间

@@ -25,7 +25,7 @@ class SendEmail:
         # 邮箱正文内容，第一个参数为内容，第二个参数为格式(plain 为纯文本)，第三个参数为编码
         msg = MIMEText(content, 'plain', 'utf-8')
         msg.add_header()
-        if files=='None':
+        if files is 'None':
             pass
         else:
             for tmp in files:
@@ -42,10 +42,10 @@ class SendEmail:
 
     def send_mail(self, msg):
         try:
-            if self.email_type=="qq.com":
+            if self.email_type == "qq.com":
                 # 开启发信服务，这里使用的是加密传输
                 server = smtplib.SMTP_SSL(self.smtp_server, self.port)
-            elif self.email_type=="163.com":
+            elif self.email_type == "163.com":
                 server = smtplib.SMTP(self.smtp_server, self.port)
             else:
                 print("请配置目标邮箱类型的连接方式！")

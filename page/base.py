@@ -26,8 +26,8 @@ class TestCase:
 
     def run_method(self, method, handle_value=None, send_value=None):
         action_function = getattr(self.action_method, method)
-        if send_value==None:
-            if handle_value==None:
+        if send_value is None:
+            if handle_value is None:
                 action_function()
             else:
                 action_function(handle_value)
