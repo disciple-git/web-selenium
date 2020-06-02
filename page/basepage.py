@@ -1,9 +1,11 @@
 import time
 from selenium import webdriver
 from page.get_element_by import GetElementBy
+from log import logger
+from selenium.webdriver.support.select import Select
 
 
-class BaseDriver:
+class BasePage:
     def open_browser(self, *args):
         '''
         打开浏览器
@@ -16,6 +18,7 @@ class BaseDriver:
             self.driver = webdriver.Chrome()
         else:
             self.driver = webdriver.Firefox()
+        self.logger = logger.Log()
 
     def get_url(self, *args):
         '''
@@ -35,8 +38,12 @@ class BaseDriver:
         '''
         by = args[0]
         get = GetElementBy(self.driver)
-        element = get.get_element_by(by)
-        return element
+        try:
+            element = get.get_element_by(by)
+            return element
+        except(Exception):
+            self.logger.error("定位元素失败！")
+
 
     def element_send_keys(self, *args):
         '''
@@ -94,6 +101,49 @@ class BaseDriver:
         :return:
         '''
         time.sleep(3)
+
+    def wait(self, *args):
+        '''
+        隐式等待
+        :param args:
+        :return:
+        '''
+        time = args[0]
+        self.driver.implicitly_wait(time)
+        self.logger.info("wait for %d seconds." % time)
+
+    def choose_selector(self, *args):
+        '''
+        选择下拉选项
+        :param args:
+        :return:
+        '''
+        by = args[0]
+        index = args[1]
+        element = self.get_element(by)
+        Select(element).select_by_index(index)
+
+    def get_attribute(self, *args):
+        '''
+        获取元素属性
+        :param args:
+        :return:
+        '''
+        by = args[0]
+        value = args[1]
+        element = self.get_element(by)
+        attr = element.get_attribute(value)
+        return attr
+
+    def get_text(self, *args):
+        '''
+        获取元素文本值
+        :param args:
+        :return:
+        '''
+        by = args[0]
+        text = self.get_element(by).text()
+        return text
 
     def close_browser(self):
         '''
