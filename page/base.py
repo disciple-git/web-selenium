@@ -1,12 +1,12 @@
 from common.excel import ReadExcel
-from page.basedriver import BaseDriver
+from page.basepage import BasePage
 import time
 
 
 class TestCase:
     def run_main(self):
         self.handle_excel = ReadExcel()
-        self.action_method = BaseDriver()
+        self.action_method = BasePage()
         time.sleep(2)
         case_lines = self.handle_excel.get_lines()
         for i in range(1, case_lines):
