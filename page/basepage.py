@@ -1,7 +1,7 @@
 import time
 from selenium import webdriver
 from page.get_element_by import GetElementBy
-from log import logger
+from log import log
 from selenium.webdriver.support.select import Select
 
 
@@ -18,7 +18,7 @@ class BasePage:
             self.driver = webdriver.Chrome()
         else:
             self.driver = webdriver.Firefox()
-        self.logger = logger.Log()
+        self.logger = log.Log()
 
     def get_url(self, *args):
         '''

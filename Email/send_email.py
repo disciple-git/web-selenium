@@ -22,10 +22,16 @@ class SendEmail:
             print("请配置目标邮箱类型的端口号！")
 
     def make_email(self, content, files=None):
+        '''
+        创建一个普通邮件
+        :param content:
+        :param files:
+        :return:
+        '''
         # 邮箱正文内容，第一个参数为内容，第二个参数为格式(plain 为纯文本)，第三个参数为编码
         msg = MIMEText(content, 'plain', 'utf-8')
-        msg.add_header()
-        if files is 'None':
+        #msg.add_header()
+        if files is None:
             pass
         else:
             for tmp in files:
@@ -37,7 +43,27 @@ class SendEmail:
         # 邮件头信息
         msg['From'] = Header(self.from_addr)
         msg['To'] = Header(self.to_addr)
-        msg['Subject'] = Header('python test')
+        msg['Subject'] = Header('自动化测试报告')
+        return msg
+
+    def make_report_email(self, report, reportName):
+        '''
+        创建一个携带附件的邮件
+        :param report:
+        :param reportName:
+        :return:
+        '''
+        with open(report, 'rb') as f:
+            mail_body = f.read()
+        msg = MIMEMultipart()
+        msg.attach(MIMEText(mail_body, 'html', 'utf-8'))
+        report_file = MIMEText(mail_body, 'html', 'utf-8')
+        # 定义附件名称（附件的名称可以随便定义，你写的是什么邮件里面显示的就是什么）
+        report_file["Content-Disposition"] = 'attachment;filename=' + reportName
+        msg.attach(report_file)  # 添加附件
+        msg['Subject'] = '自动化测试报告:' + reportName  # 邮件标题
+        msg['From'] = Header(self.from_addr)  # 发件人
+        msg['To'] = Header(self.to_addr)  # 收件人列表
         return msg
 
     def send_mail(self, msg):
