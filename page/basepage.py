@@ -18,7 +18,7 @@ class BasePage:
             self.driver = webdriver.Chrome()
         else:
             self.driver = webdriver.Firefox()
-        self.logger = log.Log()
+        self.logger = log.Logger()
 
     def get_url(self, *args):
         '''
@@ -43,7 +43,6 @@ class BasePage:
             return element
         except(Exception):
             self.logger.error("定位元素失败！")
-
 
     def element_send_keys(self, *args):
         '''
@@ -80,7 +79,7 @@ class BasePage:
         if framename == 'framset':
             rf = self.driver.find_elements_by_tag_name("frame")[num] #选择指定层框架
         else:
-            rf = self.driver.switch_to.frame("iframe")[num]
+            rf = self.driver.find_elements_by_tag_name("iframe")[num] #选择指定层框架
         self.driver.switch_to.frame(rf)
 
     def accept_alert(self, *args):

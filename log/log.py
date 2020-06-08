@@ -9,10 +9,8 @@ class Logger:
 
     def setMSG(self, level, msg):
         logger = logging.getLogger()
-
         # 创建日志名称。
         rq = time.strftime('%Y%m%d', time.localtime(time.time()))
-
         # os.getcwd()获取当前文件的路径，os.path.dirname()获取指定文件路径的上级路径
         path_dir = os.path.dirname(__file__)
         log_path = os.path.abspath(os.path.dirname(path_dir)) + '/log'
